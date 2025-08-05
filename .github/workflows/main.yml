@@ -32,12 +32,12 @@ jobs:
             platform: x64
             instance: macos-13
 
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
         # This fails in pytest with:
         # CSC : error CS4023: /platform:anycpu32bitpreferred can only be used with /t:exe, /t:winexe and /t:appcontainerexe [D:\a\pythonnet\pythonnet\src\runtime\Python.Runtime.csproj]
         exclude:
-          - os: 
+          - os:
               category: windows
               platform: x86
             python: "3.13"
@@ -58,10 +58,11 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.6.0
         with:
           python-version: ${{ matrix.python }}
           architecture: ${{ matrix.os.platform }}
+          allow-prereleases: true
 
       - name: Install dependencies
         run: |
